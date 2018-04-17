@@ -1,6 +1,18 @@
+QEMU TRACE
 1. 将需要追踪的事件写到文件中
    echo memory_region_ops_read > /tmp/events
 2. qemu运行需要参数
    -trace events=/tmp/events,file=/tmp/events.log
-3. tail -f /tmp/events.trace
+3. tail -f /tmp/events.log
+4. 生成所有的events，编译后执行
+    cat trace-events-all | grep "(" | grep -v "#" | cut -f 1 -d "(" > events
 注：以上步骤适用于默认的log后端trace
+
+
+KVM TRACE
+1. echo 1 > /sys/kernel/debug/tracing/events/kvm/enable
+2. cat /sys/kernel/debug/tracing/trace_pipe
+or
+1. sudo ./perf stat -e 'kvm:*' -a sleep 1s
+
+
