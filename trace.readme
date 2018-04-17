@@ -1,0 +1,6 @@
+1. 将需要追踪的事件写到文件中
+   echo memory_region_ops_read > /tmp/events
+2. qemu运行需要参数
+   -trace events=/tmp/events,file=/tmp/events.log
+3. tail -f /tmp/events.trace
+注：以上步骤适用于默认的log后端trace
